@@ -28,7 +28,7 @@ The flax model and code for converting it to torch can be found [here](https://g
 
 ```bash
 $ pip install min-dalle
-```  
+```
 
 ## Usage
 
@@ -41,7 +41,7 @@ model = MinDalle(
     models_root='./pretrained',
     dtype=torch.float32,
     device='cuda',
-    is_mega=True, 
+    is_mega=True,
     is_reusable=True
 )
 ```

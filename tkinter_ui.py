@@ -6,6 +6,7 @@ import PIL.ImageTk
 import tkinter
 from tkinter import ttk
 
+
 def regen_root():
     global root
     global blank_image
@@ -14,20 +15,28 @@ def regen_root():
     root = tkinter.Tk()
     root.wm_resizable(False, False)
 
-    blank_image = PIL.ImageTk.PhotoImage(PIL.Image.new(size=(256 * 2, 256 * 2), mode="RGB"))
+    blank_image = PIL.ImageTk.PhotoImage(
+        PIL.Image.new(size=(256 * 2, 256 * 2), mode="RGB")
+    )
     padding_image = PIL.ImageTk.PhotoImage(PIL.Image.new(size=(16, 16), mode="RGBA"))
+
 
 regen_root()
 
 is_mega = None
+
+
 def set_mega_true_and_destroy():
-	global is_mega
-	is_mega = True
-	root.destroy()
+    global is_mega
+    is_mega = True
+    root.destroy()
+
+
 def set_mega_false_and_destroy():
-	global is_mega
-	is_mega = False
-	root.destroy()
+    global is_mega
+    is_mega = False
+    root.destroy()
+
 
 frm = ttk.Frame(root, padding=16)
 frm.grid()
@@ -37,16 +46,13 @@ ttk.Button(frm, text="Mini", command=set_mega_false_and_destroy).grid(column=2, 
 root.mainloop()
 
 if is_mega is None:
-	print("no option selected")
-	sys.exit(0)
+    print("no option selected")
+    sys.exit(0)
 
 print("is_mega", is_mega)
 
 model = MinDalle(
-    models_root="./pretrained",
-    is_mega=is_mega, 
-    is_reusable=True,
-    is_verbose=True
+    models_root="./pretrained", is_mega=is_mega, is_reusable=True, is_verbose=True
 )
 
 regen_root()
@@ -58,6 +64,7 @@ sv_temperature = tkinter.StringVar(value="1")
 sv_topk = tkinter.StringVar(value="128")
 sv_supercond = tkinter.StringVar(value="16")
 bv_seamless = tkinter.BooleanVar(value=False)
+
 
 def generate():
     # check fields
@@ -91,7 +98,7 @@ def generate():
         temperature=temperature,
         top_k=topk,
         supercondition_factor=supercond,
-        is_verbose=True
+        is_verbose=True,
     )
     for image in image_stream:
         global final_image
@@ -100,8 +107,10 @@ def generate():
         label_image.configure(image=label_image_content)
         label_image.update()
 
+
 def save():
-    final_image.save('generated/out.png')
+    final_image.save("generated/out.png")
+
 
 frm = ttk.Frame(root, padding=16)
 frm.grid()
